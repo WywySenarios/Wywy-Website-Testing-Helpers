@@ -1,6 +1,6 @@
 import psycopg
 from psycopg import sql
-from Wywy_Website_Types import DescriptorInfo, TableInfo
+from Wywy_Website_Types import DescriptorInfo, TableInfo, DataDatatype
 from utils import to_lower_snake_case
 from .transform import table_transform, TransformTargets
 from typing import List, Any
@@ -225,3 +225,48 @@ def populate_database():
     """Repopulates the Postgres databases with 1 row of values."""
 
     table_transform(populate_transformation)
+
+
+def create_values(schema: TableInfo | DescriptorInfo) -> dict[str, DataDatatype]:
+    """Returns a dictionary populated with dummy values
+
+    Args:
+        schema (TableInfo | DescriptorInfo): The table schema to create the dummy values for.
+
+    Returns:
+        dict[str, DataDatatype]: A dictionary that is ready to INSERT (assuming populate_database was called earlier) into the given table.
+    """
+    output: dict[str, DataDatatype] = {}
+
+    if schema.get("tagging", False):
+        output["primary_tag"] = 2
+
+    for column_info in schema["schema"]:
+        column_name = to_lower_snake_case(column_info["name"])
+
+        match (column_info["datatype"]):
+            case "bool" | "boolean":
+                output[column_name] = True
+            case "date":
+                output[column_name] = "'0001-01-01'"
+            case "time":
+                output[column_name] = "'01:01:01'"
+            case "timestamp":
+                output[column_name] = "'0001-01-01T01:01:01'"
+            case "int" | "integer":
+                output[column_name] = 23
+            case "float" | "number":
+                output[column_name] = 2.3
+            case "text" | "str" | "string":
+                output[column_name] = f"'{column_name} text'"
+            case "enum":
+                output[column_name] = None
+            case "geodetic point":
+                output[column_name] = "POINT (0.2325 0.2325)"
+                output[f"{column_name}_latlong_accuracy"] = 0.23
+                output[f"{column_name}_altitude"] = 2.3
+                output[f"{column_name}_altitude_accuracy"] = 0.23
+
+            # @TODO comments
+
+    return output
