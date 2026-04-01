@@ -26,3 +26,4 @@ The following constants are required:
 - `DATA_ENDPOINT: string.Template`: template endpoint string for the parent table
 - `DESCRIPTOR_ENDPOINT: string.Template`: template endpoint string for descriptors
 - `DESCRIPTOR_ENDPOINT: string.Template`: template endpoint string for tag tables
+- `AUTH_COOKIES: dict`: authentication cookies
