@@ -72,3 +72,15 @@ Tables that were previously existent and now removed from the configuration file
 ### Datatype Testing & Negative INSERT/UPSERT
 
 There is no testing done for datatypes, nor for invalid INSERTs.
+
+### SELECT order by
+
+Not implemented yet, and probably not for a while.
+
+### Read & Write Permissions
+
+Permissions are generally not implemented.
+
+### SELECT parameters
+
+SELECT parameters are generally not implemented.
