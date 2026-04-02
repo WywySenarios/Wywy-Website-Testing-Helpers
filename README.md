@@ -34,6 +34,9 @@ The following constants are required:
   - database_name
   - table_name
   - table_type
+- `GENERIC_REQUEST_PARAMS: dict[str, Any]`: python requests library parameters.
+  - `headers: dict[str, str]`: Headers. Should include an origin header.
+  - `cookies: dict[str, str]`: Authentication cookies
 - `AUTH_COOKIES: dict[str, str]`: authentication cookies
 
 # Tests
