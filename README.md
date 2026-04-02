@@ -34,7 +34,7 @@ The following constants are required:
   - database_name
   - table_name
   - table_type
-- `AUTH_COOKIES: dict`: authentication cookies
+- `AUTH_COOKIES: dict[str, str]`: authentication cookies
 
 # Tests
 
