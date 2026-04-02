@@ -11,7 +11,7 @@ from utils import to_lower_snake_case
 from ..transformations.purge import purge_database
 from ..transformations.populate import populate_database
 from endpoint_security_tests import test_endpoint_security
-from parameter_requisites_tests import negative_test_endpoint_parameters
+from .parameter_requisites_tests import negative_test_endpoint_parameters
 from typing import List, Any
 
 
