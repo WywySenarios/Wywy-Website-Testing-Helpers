@@ -147,19 +147,23 @@ class TestSelectEndpoints(unittest.TestCase):
         endpoint_params_tested: bool = False
 
         # is INSERTing nothing or an empty JSON caught?
-        self.assertEqual(
-            requests.post(
-                **request_params,
-                data="",
-            ).status_code,
-            400,
+        response = requests.post(
+            **request_params,
+            data="",
         )
         self.assertEqual(
-            requests.post(
-                **request_params,
-                json={},
-            ).status_code,
+            response.status_code,
             400,
+            f"Invalid INSERT (empty body) did not return status 400: {response.status_code} {response.text}",
+        )
+        response = requests.post(
+            **request_params,
+            json={},
+        )
+        self.assertEqual(
+            response.status_code,
+            400,
+            f"Invalid INSERT (empty body) did not return status 400: {response.status_code} {response.text}",
         )
 
         payload: dict[str, DataDatatype] = {}
