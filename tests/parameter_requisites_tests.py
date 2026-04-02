@@ -18,19 +18,20 @@ def negative_test_endpoint_parameters(
         endpoint_template (Template): The endpoint template to validate.
         required_parameters (dict[str, str]): Valid required templates that would normally produce a 200 result or similar.
         request_method (Literal[&quot;GET&quot;, &quot;POST&quot;]): The request method to test with (GET or POST).
-        request_params (dict[str, Any]): Valid request parameters that would normally produce a 200 result or similar.
+        request_params (dict[str, Any]): Valid request parameters that would normally produce a 200 result or similar. This dictionary will be permutated.
     """
 
     for required_parameter in required_parameters:
         params = {**required_parameters}
-        del params[required_parameter]
+        params[required_parameter] = ""
         endpoint = endpoint_template.substitute(params)
+        request_params["url"] = endpoint
 
         match (request_method):
             case "GET":
-                response = GET(endpoint, **request_params)
+                response = GET(**request_params)
             case "POST":
-                response = POST(endpoint, **request_params)
+                response = POST(**request_params)
 
         test_object.assertEqual(
             response.status_code,
@@ -42,12 +43,13 @@ def negative_test_endpoint_parameters(
         params = {**required_parameters}
         params[required_parameter] = "this string will probably never be valid"
         endpoint = endpoint_template.substitute(params)
+        request_params["url"] = endpoint
 
         match (request_method):
             case "GET":
-                response = GET(endpoint, **request_params)
+                response = GET(**request_params)
             case "POST":
-                response = POST(endpoint, **request_params)
+                response = POST(**request_params)
 
         test_object.assertEqual(
             response.status_code,
