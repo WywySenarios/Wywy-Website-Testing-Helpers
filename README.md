@@ -23,7 +23,15 @@ This repo needs to be cloned as a submodule inside a folder that also contains:
 
 The following constants are required:
 
-- `DATA_ENDPOINT: string.Template`: template endpoint string for the parent table
-- `DESCRIPTOR_ENDPOINT: string.Template`: template endpoint string for descriptors
-- `TAG_ENDPOINT: string.Template`: template endpoint string for tag tables
+- `DATA_ENDPOINT: string.Template`: template endpoint string for the parent table. Parameters include:
+  - database_name
+  - table_name
+- `DESCRIPTOR_ENDPOINT: string.Template`: template endpoint string for descriptors. Parameters include:
+  - database_name
+  - table_name
+  - descriptor_name
+- `TAG_ENDPOINT: string.Template`: template endpoint string for tag tables. Parameters include:
+  - database_name
+  - table_name
+  - table_type
 - `AUTH_COOKIES: dict`: authentication cookies
