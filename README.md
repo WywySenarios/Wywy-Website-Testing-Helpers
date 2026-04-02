@@ -88,3 +88,7 @@ Permissions are generally not implemented.
 ### SELECT parameters
 
 SELECT parameters are generally not implemented.
+
+### Upsert Unupdated Values
+
+There is currently no testing done to ensure that UPSERT actually changes the values.

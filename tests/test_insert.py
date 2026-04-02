@@ -199,7 +199,7 @@ class TestSelectEndpoints(unittest.TestCase):
         )
 
     def test_insert(self):
-        """Test the INSERT data (main table & descriptors) endpoint for every table."""
+        """Test the INSERT & UPSERT data (main table & descriptors) endpoint for every table."""
         endpoint: str = DATA_ENDPOINT.substitute(
             {
                 "database_name": to_lower_snake_case(CONFIG["data"][0]["dbname"]),
@@ -230,6 +230,10 @@ class TestSelectEndpoints(unittest.TestCase):
                     "json": payload,
                 }
 
+                test_generic_valid_INSERT(self, request_params)
+
+                # test UPSERT
+                request_params["json"]["id"] = 6
                 test_generic_valid_INSERT(self, request_params)
 
                 if not endpoint_params_tested:
@@ -265,6 +269,10 @@ class TestSelectEndpoints(unittest.TestCase):
                         "json": payload,
                     }
 
+                    test_generic_valid_INSERT(self, request_params)
+
+                    # test UPSERT
+                    request_params["json"]["id"] = 6
                     test_generic_valid_INSERT(self, request_params)
 
                     if not descriptor_endpoint_params_tested:
